@@ -135,6 +135,20 @@ yarn start
 - Sponsor showcase
 - Blog/News section
 
+## 🚀 Deployment
+
+Ready to deploy to Vercel! See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
+Quick steps:
+1. Push your code to GitHub/GitLab/Bitbucket
+2. Import project on [Vercel](https://vercel.com/new)
+3. Add environment variables (Supabase credentials)
+4. Deploy!
+
+**Note:** Remember to add these environment variables in Vercel:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
 ## 📄 License
 
 All rights reserved © 2025 Founders Fest
