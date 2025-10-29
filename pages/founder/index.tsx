@@ -79,6 +79,7 @@ const Founder: NextPage = () => {
                     transition={{ delay: 0.4 }}
                     className="space-y-4"
                   >
+                    {/* eslint-disable-next-line react/no-unescaped-entities */}
                     <p className="text-lg text-primary-white/80 leading-relaxed">
                       This is a placeholder bio paragraph that will be updated with the founder&apos;s 
                       actual background, experience, vision, and achievements. The text here describes 

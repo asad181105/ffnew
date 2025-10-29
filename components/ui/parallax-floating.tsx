@@ -119,8 +119,10 @@ export const FloatingElement = ({
 
     const nonNullDepth = depth ?? 0.01
     const elementId = idRef.current
+    const element = elementRef.current
 
-    context.registerElement(elementId, elementRef.current, nonNullDepth)
+    context.registerElement(elementId, element, nonNullDepth)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => context.unregisterElement(elementId)
   }, [depth, context])
 
