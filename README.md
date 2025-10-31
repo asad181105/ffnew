@@ -94,11 +94,12 @@ yarn install
 
 2. **Set up Supabase environment variables:**
    - Create a `.env.local` file in the root directory
-   - Add the following variables (see `SUPABASE_SETUP.md` for details):
+   - Add the following variables (see `SUPABASE_SETUP.md` for detailed instructions):
    ```env
-   NEXT_PUBLIC_SUPABASE_URL=https://lxbqongllniqpexymmov.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4YnFvbmdsbG5pcXBleHltbW92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE3NTQ3NTAsImV4cCI6MjA3NzMzMDc1MH0.WQe9RYD0BIVBsPmEnPS1ZMT10XYMnRft34YmuC75O8M
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
+   - Get your credentials from your Supabase project dashboard (Settings → API)
 
 3. Run the development server:
 ```bash

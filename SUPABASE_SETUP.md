@@ -5,9 +5,18 @@
 Create a `.env.local` file in the root directory with the following:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=https://lxbqongllniqpexymmov.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4YnFvbmdsbG5pcXBleHltbW92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE3NTQ3NTAsImV4cCI6MjA3NzMzMDc1MH0.WQe9RYD0BIVBsPmEnPS1ZMT10XYMnRft34YmuC75O8M
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
+
+**Where to find these values:**
+1. Go to your [Supabase Dashboard](https://app.supabase.com)
+2. Select your project
+3. Navigate to **Settings** → **API**
+4. Copy the **Project URL** for `NEXT_PUBLIC_SUPABASE_URL`
+5. Copy the **anon public** key for `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+**⚠️ Security Note:** Never commit your `.env.local` file to git! It's already added to `.gitignore`.
 
 ## Installation
 
