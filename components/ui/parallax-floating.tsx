@@ -118,14 +118,17 @@ export const FloatingElement = ({
     if (!elementRef.current || !context) return
 
     const nonNullDepth = depth ?? 0.01
+    // Capture the elementId at effect time to use in cleanup
     const elementId = idRef.current
     const element = elementRef.current
 
     context.registerElement(elementId, element, nonNullDepth)
     
+    // Use captured elementId in cleanup to avoid stale closure
     return () => {
       context.unregisterElement(elementId)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [depth, context])
 
   return (

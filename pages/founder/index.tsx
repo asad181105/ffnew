@@ -80,10 +80,10 @@ const Founder: NextPage = () => {
                     className="space-y-4"
                   >
                     <p className="text-lg text-primary-white/80 leading-relaxed">
-                      This is a placeholder bio paragraph that will be updated with the founders 
-                      actual background, experience, vision, and achievements. The text here describes 
-                      their journey as an entrepreneur, their passion for supporting startups, and their 
-                      vision for the future of innovation.
+                      This is a placeholder bio paragraph that will be updated with the founders actual 
+                      background, experience, vision, and achievements. The text here describes their 
+                      journey as an entrepreneur, their passion for supporting startups, and their vision 
+                      for the future of innovation.
                     </p>
                     <p className="text-lg text-primary-white/80 leading-relaxed">
                       With years of experience in the startup ecosystem, the founder has been instrumental 
