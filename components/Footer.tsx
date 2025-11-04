@@ -4,9 +4,7 @@ import { Instagram, Linkedin, Mail, Phone } from 'lucide-react'
 const Footer = () => {
   const quickLinks = [
     { href: '/', label: 'Home' },
-    { href: '/explore', label: 'Explore' },
     { href: '/about', label: 'About' },
-    { href: '/founder', label: 'Founder' },
   ]
 
   return (
@@ -17,8 +15,7 @@ const Footer = () => {
           <div>
             <h3 className="text-primary-yellow text-lg font-bold mb-4">About</h3>
             <p className="text-primary-white/80 text-sm leading-relaxed">
-              Adventure Park Incubation Center is dedicated to nurturing innovation and supporting
-              aspiring entrepreneurs in their journey to build successful startups.
+              EdVenture Park Incubation India's First and Favourite Student Startup Incubator introducing India's first Pre Incubation Program, tailored to suit the needs of the STUDENTS!
             </p>
           </div>
 
@@ -58,12 +55,12 @@ const Footer = () => {
                   href="tel:+1234567890"
                   className="text-primary-white/80 hover:text-primary-yellow transition-colors duration-300 text-sm"
                 >
-                  +1 (234) 567-890
+                  +91 63098 06633
                 </a>
               </li>
               <li className="flex items-center space-x-4 pt-2">
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/founders.fest?igsh=NjZjZDhrbDE1M2Nt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-white/80 hover:text-primary-yellow transition-colors duration-300"
@@ -72,7 +69,7 @@ const Footer = () => {
                   <Instagram size={20} />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/edventure-park/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-white/80 hover:text-primary-yellow transition-colors duration-300"

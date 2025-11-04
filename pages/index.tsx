@@ -1,25 +1,24 @@
 import { NextPage } from 'next'
+import { useState } from 'react'
 import Head from 'next/head'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Hero from '@/components/Hero'
-import ParallaxSection from '@/components/ParallaxSection'
 import { motion } from 'framer-motion'
 
 const Home: NextPage = () => {
+  const [showNavbar, setShowNavbar] = useState(false)
+
   return (
-    <>
+    <div style={{ margin: 0, padding: 0, background: 'transparent' }}>
       <Head>
         <title>Founders Fest 2025-26 | Ignite. Build. Celebrate.</title>
         <meta name="description" content="Founders Fest 2025-26 - Two days of innovation, networking, and celebration on December 31, 2025 and January 1, 2026." />
       </Head>
-      <Navbar />
-      <main>
-        <Hero />
-        {/* Parallax Floating Section */}
-        <ParallaxSection />
+      <main style={{ background: 'transparent', margin: 0, padding: 0, position: 'relative' }}>
+        <Hero onAnimationComplete={() => setShowNavbar(true)} />
         {/* Register Section */}
-        <section id="register" className="py-20 px-4">
+        {/* <section id="register" className="py-20 px-4">
           <div className="container mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -43,10 +42,10 @@ const Home: NextPage = () => {
               </motion.a>
             </motion.div>
           </div>
-        </section>
+        </section> */}
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
 

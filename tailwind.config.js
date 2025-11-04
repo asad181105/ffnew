@@ -7,10 +7,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'gta': ['Righteous', 'cursive'],
+      },
       colors: {
         primary: {
           black: '#000000',
-          yellow: '#FFD700',
+          yellow: '#fbbd31',
           white: '#FFFFFF',
         },
       },
@@ -20,8 +23,8 @@ module.exports = {
       },
       keyframes: {
         glow: {
-          '0%': { boxShadow: '0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700' },
-          '100%': { boxShadow: '0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700' },
+          '0%': { boxShadow: '0 0 5px #fbbd31, 0 0 10px #fbbd31, 0 0 15px #fbbd31' },
+          '100%': { boxShadow: '0 0 10px #fbbd31, 0 0 20px #fbbd31, 0 0 30px #fbbd31' },
         },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
