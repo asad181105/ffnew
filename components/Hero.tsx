@@ -223,7 +223,7 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
             <img
               src="/hero.svg"
               alt="Founders Fest 2025-26"
-              className="w-full max-w-[1200px] h-auto"
+              className="w-full max-w-[400px] h-auto"
             />
           </motion.div>
 

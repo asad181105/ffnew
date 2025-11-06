@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'gta': ['Righteous', 'cursive'],
+        'gta': ['Black Mango', 'sans-serif'],
       },
       colors: {
         primary: {
