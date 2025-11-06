@@ -88,7 +88,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden py-4 space-y-2"
+            className="md:hidden py-4 space-y-2 bg-black/80 backdrop-blur-sm rounded-lg mt-2"
           >
             {navLinks.map((link) => {
               const isActive = router.pathname === link.href

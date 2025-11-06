@@ -78,13 +78,13 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
 
   return (
     <section
-      className="relative w-full bg-transparent overflow-hidden"
+      className="relative w-full bg-transparent overflow-hidden min-h-[100svh] md:min-h-[110vh]"
       aria-label="Founders Fest Hero"
       style={{
         paddingTop: "0",
         paddingBottom: "10px",
-        minHeight: "100vh",
         position: "relative",
+        backgroundColor: "transparent",
       }}
     >
       {/* Navbar */}
@@ -152,7 +152,7 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden py-4 space-y-2"
+              className="md:hidden py-4 space-y-2 bg-black/80 backdrop-blur-sm rounded-lg mt-2"
             >
               {navLinks.map((link) => {
                 const isActive = router.pathname === link.href;
@@ -183,14 +183,20 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
           loop
           muted
           playsInline
-          className="absolute w-full h-full object-cover"
+          className="absolute w-full h-full object-cover object-top md:object-center min-w-full min-h-full"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'top center',
+          }}
         >
           <source src="/bgvideo.mp4" type="video/mp4" />
         </video>
       </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/20 via-black/15 to-black/30" />
 
       {/* Logo Intro (only first visit) */}
       {hasPlayedAnimation === false && (
@@ -212,18 +218,18 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
       )}
 
       {/* Hero Content */}
-      <div className="absolute inset-0 flex items-center justify-center z-[3]">
-        <div className="text-center flex flex-col items-center justify-center w-full max-w-7xl px-6">
+      <div className="absolute inset-0 flex items-center justify-center z-[3] overflow-hidden">
+        <div className="text-center flex flex-col items-center justify-center w-full max-w-7xl px-4 sm:px-6 pt-2 sm:pt-3 pb-4 sm:pb-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={showTexts ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2 }}
-            className="mb-8 w-full flex justify-center"
+            className="mt-2 sm:mt-3 mb-4 sm:mb-6 md:mb-8 w-full flex justify-center"
           >
             <img
               src="/hero.svg"
               alt="Founders Fest 2025-26"
-              className="w-full max-w-[400px] h-auto"
+              className="w-full max-w-[35vw] sm:max-w-[300px] md:max-w-[450px] lg:max-w-[500px] h-auto"
             />
           </motion.div>
 
@@ -236,7 +242,7 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
             transition={{ duration: 1.0, delay: 0.2 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="mb-4 inline-block bg-primary-yellow text-primary-black px-10 py-4 rounded-lg font-gta font-bold text-2xl uppercase tracking-wider shadow-lg hover:shadow-primary-yellow/50 transition-all duration-300"
+            className="mb-3 sm:mb-4 inline-block bg-primary-yellow text-primary-black px-6 py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4 rounded-lg font-gta font-bold text-lg sm:text-xl md:text-2xl uppercase tracking-wider shadow-lg hover:shadow-primary-yellow/50 transition-all duration-300"
           >
             Book Your Stall Now
           </motion.a>
@@ -245,10 +251,11 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
             initial={{ opacity: 0, y: 16 }}
             animate={showTexts ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.0, delay: 0.3 }}
-            className="mt-2 w-full flex items-center justify-center"
-            style={{ transform: "scale(0.9)" }}
+            className="w-full flex items-center justify-center px-2 sm:px-4"
           >
-            <Countdown />
+            <div className="scale-75 sm:scale-90 md:scale-100">
+              <Countdown />
+            </div>
           </motion.div>
         </div>
       </div>
