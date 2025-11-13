@@ -15,7 +15,11 @@ const Footer = () => {
           <div>
             <h3 className="text-primary-yellow text-lg font-bold mb-4">About</h3>
             <p className="text-primary-white/80 text-sm leading-relaxed">
-              EdVenture Park Incubation India's First and Favourite Student Startup Incubator introducing India's first Pre Incubation Program, tailored to suit the needs of the STUDENTS!
+            EdVenture Incubation Foundation is India’s First and Largest student-focused startup
+            incubator for ideation and early-stage startups. Our focus is to build fundamentally right
+            companies that are sustainable and scalable. We nurture student-led startups by providing a
+            supportive environment for generating and developing innovative ideas into value and
+            profit-generating startups.
             </p>
           </div>
 

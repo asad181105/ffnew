@@ -58,11 +58,11 @@ const About: NextPage = () => {
               </h2>
               <div className="bg-primary-black border-2 border-primary-yellow/30 rounded-lg p-6 md:p-8">
                 <p className="text-lg text-primary-white/80 leading-relaxed mb-4">
-                  More than just an event, Founders' Fest is a celebration of the entrepreneurial spirit—one that runs deep in our city. It's where stories of resilience, creativity, and impact come to life, creating a sense of belonging for every participant. From a vibrant Innovation Showcase to a thrilling Business Challenge, the Fest ensures that innovation and community remain at the forefront.
+                More than just an event, Founders’ Fest is a celebration of the entrepreneurial spirit-one that runs deep in our city. It’s where stories of resilience, creativity, and impact come to life, creating a sense of belonging for every participant. Founders’ Fest ensures that innovation and community remain at the forefront.
                 </p>
-                <p className="text-lg text-primary-white/80 leading-relaxed">
+                {/* <p className="text-lg text-primary-white/80 leading-relaxed">
                   The highlight, undoubtedly, is The Great Hyderabad Business Challenge—a stage where startups pitch their solutions for a grand prize of ₹5,00,000, driving creativity and encouraging ideas. Beyond the competition, participants gain exclusive access to masterclasses led by industry leaders, expert mentors and a collaborative network that supports their journey long after the Fest ends.
-                </p>
+                </p> */}
               </div>
             </motion.div>
 
@@ -75,7 +75,7 @@ const About: NextPage = () => {
               className="mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-primary-yellow mb-6">
-                A Look Back at Founders' Fest 2024
+              A Look Back at Founders’ Fest 2023 & 2024
               </h2>
               <div className="bg-primary-black border-2 border-primary-yellow/30 rounded-lg p-6 md:p-8">
                 <p className="text-lg text-primary-white/80 leading-relaxed mb-6">
@@ -84,23 +84,23 @@ const About: NextPage = () => {
                 <ul className="space-y-4 mb-6">
                   <li className="flex items-start">
                     <span className="text-primary-yellow mr-3 text-xl">•</span>
-                    <span className="text-lg text-primary-white/80"><strong className="text-primary-yellow">151 businesses</strong> participated, showcasing ideas and solutions.</span>
+                    <span className="text-lg text-primary-white/80"><strong className="text-primary-yellow">400+ businesses participated</strong> , showcasing ideas and solutions.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-primary-yellow mr-3 text-xl">•</span>
-                    <span className="text-lg text-primary-white/80"><strong className="text-primary-yellow">12,036+ attendees</strong> joined the celebration, creating unmatched energy and enthusiasm.</span>
+                    <span className="text-lg text-primary-white/80"><strong className="text-primary-yellow">50,000+ attendees</strong> joined the celebration, creating unmatched energy and enthusiasm.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-primary-yellow mr-3 text-xl">•</span>
-                    <span className="text-lg text-primary-white/80">Over <strong className="text-primary-yellow">₹1.2 crore in revenue</strong> was reported through dynamic stalls, proving the Fest as a platform for real business growth.</span>
+                    <span className="text-lg text-primary-white/80">Over <strong className="text-primary-yellow">Over ₹3.2 crore in revenue</strong> was reported through dynamic stalls, proving the Fest as a platform for real business growth.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-primary-yellow mr-3 text-xl">•</span>
-                    <span className="text-lg text-primary-white/80"><strong className="text-primary-yellow">6 winning startups</strong> were recognized for their resilience and vision.</span>
+                    <span className="text-lg text-primary-white/80"><strong className="text-primary-yellow">11 winning startups</strong> were recognized for their resilience and vision.</span>
                   </li>
                 </ul>
                 <p className="text-lg text-primary-white/80 leading-relaxed">
-                  From endorsements by over <strong className="text-primary-yellow">70+ well-known influencers</strong> to <strong className="text-primary-yellow">25+ partnerships</strong> and masterclasses, Founders' Fest 2024 demonstrated that it is more than just an event—it's an ecosystem for nurturing ideas and encouraging collaborations.
+                  From endorsements by over <strong className="text-primary-yellow">100+ well-known influencers</strong> to <strong className="text-primary-yellow"> 50+ partnerships</strong> and masterclasses, Founders' Fest 2023 & 2024 demonstrated that it is more than just an event—it's an ecosystem for nurturing ideas and encouraging collaborations.
                 </p>
               </div>
             </motion.div>
