@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Menu, X } from "lucide-react";
 import Countdown from "./Countdown";
+import { supabase } from "@/lib/supabase";
 
 type Easing = (t: number) => number;
 const easeInCubic: Easing = (t) => t * t * t;
@@ -20,12 +21,25 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hasPlayedAnimation, setHasPlayedAnimation] = useState<boolean | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [videoAutoplay, setVideoAutoplay] = useState<boolean>(false);
+  const [videoSrc, setVideoSrc] = useState<string>("/bgvideo.mp4");
+  const [fallbackImage, setFallbackImage] = useState<string | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [playButtonImageUrl, setPlayButtonImageUrl] = useState<string | null>(null);
+  const [pauseButtonImageUrl, setPauseButtonImageUrl] = useState<string | null>(null);
 
   const heroImageSrc = useMemo(() => "/logo.png", []);
 
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
+    { href: "/participate", label: "Be a Part" },
+    { href: "/awards", label: "Awards" },
+    { href: "/team", label: "Team" },
+    { href: "/partners", label: "Partners" },
+    { href: "/contact", label: "Contact" },
+    { href: "/register", label: "Register" },
   ];
 
   // --- Run only once after hydration (check localStorage)
@@ -33,6 +47,30 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
     if (typeof window === "undefined") return;
     const played = localStorage.getItem("hasPlayedHeroAnimation") === "true";
     setHasPlayedAnimation(played); // null → true/false
+  }, []);
+
+  // --- Load hero settings from Supabase
+  useEffect(() => {
+    let isMounted = true;
+    const fetchSettings = async () => {
+      const { data, error } = await supabase
+        .from("home_settings")
+        .select("video_url, autoplay, fallback_image_url, play_button_image_url, pause_button_image_url")
+        .eq("id", 1)
+        .single();
+      if (!isMounted) return;
+      if (!error && data) {
+        setVideoAutoplay(Boolean(data.autoplay));
+        setVideoSrc(data.video_url || "/bgvideo.mp4");
+        setFallbackImage(data.fallback_image_url || null);
+        setPlayButtonImageUrl(data.play_button_image_url || null);
+        setPauseButtonImageUrl(data.pause_button_image_url || null);
+      }
+    };
+    fetchSettings();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // --- The animation itself
@@ -75,6 +113,29 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
       return () => clearTimeout(t);
     }
   }, [imageLoaded, hasPlayedAnimation, startAnimation, onAnimationComplete]);
+
+  // --- Control autoplay behavior once settings and ref are ready
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    if (videoAutoplay) {
+      el.play().then(() => setIsVideoPlaying(true)).catch(() => setIsVideoPlaying(false));
+    } else {
+      el.pause();
+      setIsVideoPlaying(false);
+    }
+  }, [videoAutoplay]);
+
+  const handlePlayPause = () => {
+    const el = videoRef.current;
+    if (!el) return;
+    if (el.paused) {
+      el.play().then(() => setIsVideoPlaying(true)).catch(() => setIsVideoPlaying(false));
+    } else {
+      el.pause();
+      setIsVideoPlaying(false);
+    }
+  };
 
   return (
     <section
@@ -178,8 +239,15 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
 
       {/* Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden">
+        {fallbackImage && !isVideoPlaying && (
+          <img
+            src={fallbackImage}
+            alt="Hero background"
+            className="absolute w-full h-full object-cover object-top md:object-center min-w-full min-h-full"
+          />
+        )}
         <video
-          autoPlay
+          ref={videoRef}
           loop
           muted
           playsInline
@@ -190,13 +258,34 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
             objectFit: 'cover',
             objectPosition: 'top center',
           }}
+          onPlay={() => setIsVideoPlaying(true)}
+          onPause={() => setIsVideoPlaying(false)}
         >
-          <source src="/bgvideo.mp4" type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
         </video>
       </div>
 
       {/* Overlay */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/20 via-black/15 to-black/30" />
+
+      {/* Play/Pause Control - image-based if configured, else fallback to button */}
+      <div className="absolute z-[100] left-1/2 -translate-x-1/2 bottom-8">
+        {((!isVideoPlaying && playButtonImageUrl) || (isVideoPlaying && pauseButtonImageUrl)) ? (
+          <img
+            src={isVideoPlaying ? (pauseButtonImageUrl as string) : (playButtonImageUrl as string)}
+            alt={isVideoPlaying ? "Pause video" : "Play video"}
+            onClick={handlePlayPause}
+            className="h-12 w-auto cursor-pointer select-none drop-shadow-[0_0_12px_rgba(0,0,0,0.35)] hover:scale-105 transition-transform"
+          />
+        ) : (
+          <button
+            onClick={handlePlayPause}
+            className="bg-primary-yellow text-primary-black px-5 py-2 rounded-md font-gta font-semibold shadow-lg hover:shadow-primary-yellow/50 transition-all"
+          >
+            {isVideoPlaying ? "Pause Video" : "Play Video"}
+          </button>
+        )}
+      </div>
 
       {/* Logo Intro (only first visit) */}
       {hasPlayedAnimation === false && (
@@ -234,9 +323,7 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
           </motion.div>
 
           <motion.a
-            href="https://forms.gle/4hufj4eBF3jETaoM7"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/register"
             initial={{ opacity: 0, y: 16 }}
             animate={showTexts ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.0, delay: 0.2 }}
@@ -244,7 +331,7 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
             whileTap={{ scale: 0.95 }}
             className="mb-3 sm:mb-4 inline-block bg-primary-yellow text-primary-black px-6 py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4 rounded-lg font-gta font-bold text-lg sm:text-xl md:text-2xl uppercase tracking-wider shadow-lg hover:shadow-primary-yellow/50 transition-all duration-300"
           >
-            Book Your Stall Now
+            Register Now
           </motion.a>
 
           <motion.div
@@ -254,7 +341,7 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
             className="w-full flex items-center justify-center px-2 sm:px-4"
           >
             <div className="scale-75 sm:scale-90 md:scale-100">
-              <Countdown />
+              {/* <Countdown /> */}
             </div>
           </motion.div>
         </div>

@@ -5,6 +5,12 @@ const Footer = () => {
   const quickLinks = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
+    { href: '/participate', label: 'Be a Part' },
+    { href: '/awards', label: 'Awards' },
+    { href: '/team', label: 'Team' },
+    { href: '/partners', label: 'Partners' },
+    { href: '/contact', label: 'Contact' },
+    { href: '/register', label: 'Register as Attendee' },
   ]
 
   return (
