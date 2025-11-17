@@ -1,6 +1,8 @@
 import Head from "next/head";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ImageCarousel from "@/components/ImageCarousel";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
@@ -15,21 +17,25 @@ export default function ParticipatePage() {
 	const [paras, setParas] = useState<WhyParagraph[]>([]);
 	const [benefits, setBenefits] = useState<Benefit[]>([]);
 	const [complimentaries, setComplimentaries] = useState<Complimentary[]>([]);
+	const [carouselImages, setCarouselImages] = useState<string[]>([]);
 
 	useEffect(() => {
 		let mounted = true;
 		const load = async () => {
-			const [bRes, pRes, bnRes, cRes] = await Promise.all([
+			const [bRes, pRes, bnRes, cRes, imgRes] = await Promise.all([
 				supabase.from("participate_why_bullets").select("*").order("order", { ascending: true }),
 				supabase.from("participate_why_paragraphs").select("*").order("order", { ascending: true }),
 				supabase.from("participate_benefits").select("*").order("order", { ascending: true }),
 				supabase.from("participate_complementary").select("*").order("order", { ascending: true }),
+				supabase.from("participate_carousel_images").select("url").order("order", { ascending: true }),
 			]);
 			if (!mounted) return;
 			const bulletsData = (bRes.data || []) as WhyBullet[];
 			const parasData = (pRes.data || []) as WhyParagraph[];
 			const benefitsData = (bnRes.data || []) as Benefit[];
 			const compData = (cRes.data || []) as Complimentary[];
+			const imagesData = (imgRes.data || []).map((img: any) => img.url) as string[];
+			
 			setBullets(bulletsData.length ? bulletsData : [
 				{ id: 1 as any, text: "Massive footfall and buyer traffic", visible: true, order: 0 },
 				{ id: 2 as any, text: "Mentorship and investor exposure", visible: true, order: 1 },
@@ -45,6 +51,13 @@ export default function ParticipatePage() {
 				{ id: 1 as any, title: "Basic stall setup", visible: true, order: 0 },
 				{ id: 2 as any, title: "Festival badges", visible: true, order: 1 },
 			]);
+			// Set carousel images - use placeholder images if none in database
+			setCarouselImages(imagesData.length > 0 ? imagesData : [
+				"https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",
+				"https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&h=600&fit=crop",
+				"https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&h=600&fit=crop",
+				"https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=600&fit=crop",
+			]);
 		};
 		load();
 		return () => { mounted = false; };
@@ -59,7 +72,7 @@ export default function ParticipatePage() {
 				<meta name="description" content="Why participate as a business, benefits, and complimentary offerings at Founders Fest." />
 			</Head>
 			<Navbar variant="floating" />
-			<main className="pt-24 md:pt-28">
+			<main className="pt-20 md:pt-28">
 				{/* WHY US */}
 				<section className="px-4 py-16 bg-gradient-to-b from-black to-black/95">
 					<div className="container mx-auto max-w-6xl">
@@ -164,6 +177,36 @@ export default function ParticipatePage() {
 								</motion.li>
 							))}
 						</ul>
+					</div>
+				</section>
+
+				{/* CAROUSEL AND CTA SECTION */}
+				<section className="px-4 py-16 bg-gradient-to-b from-black to-black/95">
+					<div className="container mx-auto max-w-6xl">
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.6 }}
+							className="space-y-8"
+						>
+							{/* Image Carousel */}
+							{carouselImages.length > 0 && (
+								<div className="mb-8">
+									<ImageCarousel images={carouselImages} autoScrollInterval={3000} />
+								</div>
+							)}
+
+							{/* CTA Button */}
+							<div className="text-center">
+								<Link
+									href="/book-stall"
+									className="inline-block bg-primary-yellow text-primary-black px-8 md:px-12 py-4 md:py-5 rounded-full font-bold text-lg md:text-2xl uppercase tracking-wider shadow-lg hover:shadow-primary-yellow/50 hover:bg-primary-yellow/90 transition-all duration-300 font-gta"
+								>
+									Book a Stall
+								</Link>
+							</div>
+						</motion.div>
 					</div>
 				</section>
 			</main>

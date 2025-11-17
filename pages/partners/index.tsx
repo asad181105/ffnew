@@ -96,7 +96,7 @@ export default function PartnersPage() {
 				<meta name="description" content="Partners, sponsors, and influencers of Founders Fest." />
 			</Head>
 			<Navbar variant="floating" />
-			<main className="pt-24 md:pt-28">
+			<main className="pt-20 md:pt-28">
 				<Section title="2023 Partners" gov={gov2023} sponsors={sponsors2023} influencers={influencers2023} />
 				<Section title="2024 Partners" gov={gov2024} sponsors={sponsors2024} influencers={influencers2024} />
 			</main>

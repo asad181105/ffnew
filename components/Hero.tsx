@@ -164,7 +164,7 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/20 via-black/15 to-black/30" />
 
       {/* Play/Pause Control - image-based if configured, else fallback to button */}
-      <div className="absolute z-[100] left-1/2 -translate-x-1/2 bottom-8">
+      {/* <div className="absolute z-[100] left-1/2 -translate-x-1/2 bottom-8">
         {((!isVideoPlaying && playButtonImageUrl) || (isVideoPlaying && pauseButtonImageUrl)) ? (
           <img
             src={isVideoPlaying ? (pauseButtonImageUrl as string) : (playButtonImageUrl as string)}
@@ -180,7 +180,7 @@ export default function Hero({ onAnimationComplete }: HeroProps): JSX.Element {
             {isVideoPlaying ? "Pause Video" : "Play Video"}
           </button>
         )}
-      </div>
+      </div> */}
 
       {/* Logo Intro (only first visit) */}
       {hasPlayedAnimation === false && (

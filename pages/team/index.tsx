@@ -30,7 +30,7 @@ export default function TeamPage() {
 		<>
 			<Head><title>Team – Founders Fest</title></Head>
 			<Navbar variant="floating" />
-			<main className="pt-24 md:pt-28">
+			<main className="pt-20 md:pt-28">
 				<section className="px-4 py-16 bg-gradient-to-b from-black to-black/95">
 					<div className="container mx-auto max-w-7xl">
 						<motion.h1 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-3xl md:text-5xl font-bold text-primary-yellow mb-10">Meet the Team</motion.h1>

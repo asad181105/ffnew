@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         <title>Founders Fest 2025-26 | Ignite. Build. Celebrate.</title>
         <meta name="description" content="Founders Fest 2025-26 - Two days of innovation, networking, and celebration on December 31, 2025 and January 1, 2026." />
       </Head>
-      <main style={{ background: 'transparent', margin: 0, padding: 0, position: 'relative' }}>
+      <main style={{ background: 'transparent', margin: 0, padding: 0, position: 'relative' }} className="pt-16 md:pt-0">
         <Navbar variant="floating" />
         <Hero />
         {/* Register Section */}

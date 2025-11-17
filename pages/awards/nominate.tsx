@@ -59,7 +59,7 @@ export default function NominatePage() {
 		<>
 			<Head><title>Nominate – Founders Fest Awards</title></Head>
 			<Navbar variant="floating" />
-			<main className="pt-24 md:pt-28">
+			<main className="pt-20 md:pt-28">
 				<section className="px-4 py-12 bg-gradient-to-b from-black to-black/95">
 					<div className="container mx-auto max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-10">
 						<div className="hidden lg:block rounded-xl bg-white/5 border border-white/10 p-6">

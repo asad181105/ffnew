@@ -142,7 +142,7 @@ const About: NextPage = () => {
 				<meta property="og:type" content="website" />
 			</Head>
 			<Navbar variant="floating" />
-			<main className="pt-24 md:pt-28">
+			<main className="pt-20 md:pt-28">
 				<section className="py-16 md:py-24 px-4 bg-gradient-to-b from-primary-black to-primary-black/95">
 					<div className="container mx-auto text-center max-w-4xl">
 						<motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>

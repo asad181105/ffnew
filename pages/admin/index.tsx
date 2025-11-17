@@ -5,6 +5,7 @@ import AdminGuard from "@/components/AdminGuard";
 const items = [
 	{ href: "/admin/home", title: "Home Page Settings", desc: "Hero video, autoplay, fallback" },
 	{ href: "/admin/attendees", title: "Attendees", desc: "View, approve/reject, export" },
+	{ href: "/admin/stall-bookings", title: "Stall Bookings", desc: "View, approve/reject stall bookings" },
 	{ href: "/admin/email", title: "Email & Ticket", desc: "Subject, body, sender, auto-send" },
 	{ href: "/admin/about", title: "About Page Controls", desc: "2023/2024 metrics, images, rotation, team" },
 	{ href: "/admin/participation", title: "Business Participation Settings", desc: "Why Us, Benefits, Complementary" },

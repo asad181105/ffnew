@@ -64,7 +64,7 @@ export default function ContactPage() {
 		<>
 			<Head><title>Contact – Founders Fest</title></Head>
 			<Navbar variant="floating" />
-			<main className="pt-24 md:pt-28">
+			<main className="pt-20 md:pt-28">
 				<section className="px-4 py-16 bg-gradient-to-b from-black to-black/95">
 					<div className="container mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-10">
 						<div>
