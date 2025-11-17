@@ -66,7 +66,7 @@ export default function AdminEmailSettings() {
 						<span>Auto-send ticket on approve</span>
 					</label>
 					<div>
-						<button onClick={save} disabled={saving} className="bg-primary-yellow text-black px-4 py-2 rounded-md font-semibold">{saving ? "Saving..." : "Save Settings"}</button>
+						<button onClick={save} disabled={saving} className="bg-primary-yellow text-black px-4 py-2 rounded-full font-semibold">{saving ? "Saving..." : "Save Settings"}</button>
 					</div>
 				</section>
 				</AdminGuard>

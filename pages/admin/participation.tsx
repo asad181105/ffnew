@@ -116,7 +116,7 @@ export default function AdminParticipation() {
 				<section className="bg-white/5 rounded-xl p-6 space-y-4">
 					<div className="flex items-center justify-between">
 						<h2 className="text-xl font-semibold">Why Us – Paragraphs</h2>
-						<button onClick={addPara} className="bg-primary-yellow text-black px-3 py-1 rounded">Add Paragraph</button>
+						<button onClick={addPara} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Paragraph</button>
 					</div>
 					{paras.map((p, idx) => (
 						<div key={p.id} className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_auto] gap-3 items-start border-b border-white/10 pb-3 mb-3">
@@ -128,13 +128,13 @@ export default function AdminParticipation() {
 								rows={2}
 							/>
 							<div className="flex gap-2 justify-end">
-								<button onClick={() => moveItem("participate_why_paragraphs", paras, idx, -1)} className="px-2 py-1 bg-white/10 rounded">Up</button>
-								<button onClick={() => moveItem("participate_why_paragraphs", paras, idx, 1)} className="px-2 py-1 bg-white/10 rounded">Down</button>
+								<button onClick={() => moveItem("participate_why_paragraphs", paras, idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+								<button onClick={() => moveItem("participate_why_paragraphs", paras, idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
 							</div>
-							<button onClick={() => toggleVisibility("participate_why_paragraphs", p.id, p.visible)} className="px-2 py-1 bg-white/10 rounded">
+							<button onClick={() => toggleVisibility("participate_why_paragraphs", p.id, p.visible)} className="px-2 py-1 bg-white/10 rounded-full">
 								{p.visible === false ? "Enable" : "Disable"}
 							</button>
-							<button onClick={() => deletePara(p.id)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+							<button onClick={() => deletePara(p.id)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 						</div>
 					))}
 				</section>
@@ -143,7 +143,7 @@ export default function AdminParticipation() {
 				<section className="bg-white/5 rounded-xl p-6 space-y-4">
 					<div className="flex items-center justify-between">
 						<h2 className="text-xl font-semibold">Why Us – Bullets</h2>
-						<button onClick={addBullet} className="bg-primary-yellow text-black px-3 py-1 rounded">Add Bullet</button>
+						<button onClick={addBullet} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Bullet</button>
 					</div>
 					{bullets.map((b, idx) => (
 						<div key={b.id} className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_auto] gap-3 items-start border-b border-white/10 pb-3 mb-3">
@@ -155,13 +155,13 @@ export default function AdminParticipation() {
 								placeholder="Bullet text"
 							/>
 							<div className="flex gap-2 justify-end">
-								<button onClick={() => moveItem("participate_why_bullets", bullets, idx, -1)} className="px-2 py-1 bg-white/10 rounded">Up</button>
-								<button onClick={() => moveItem("participate_why_bullets", bullets, idx, 1)} className="px-2 py-1 bg-white/10 rounded">Down</button>
+								<button onClick={() => moveItem("participate_why_bullets", bullets, idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+								<button onClick={() => moveItem("participate_why_bullets", bullets, idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
 							</div>
-							<button onClick={() => toggleVisibility("participate_why_bullets", b.id, b.visible)} className="px-2 py-1 bg-white/10 rounded">
+							<button onClick={() => toggleVisibility("participate_why_bullets", b.id, b.visible)} className="px-2 py-1 bg-white/10 rounded-full">
 								{b.visible === false ? "Enable" : "Disable"}
 							</button>
-							<button onClick={() => deleteBullet(b.id)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+							<button onClick={() => deleteBullet(b.id)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 						</div>
 					))}
 				</section>
@@ -170,7 +170,7 @@ export default function AdminParticipation() {
 				<section className="bg-white/5 rounded-xl p-6 space-y-4">
 					<div className="flex items-center justify-between">
 						<h2 className="text-xl font-semibold">Benefits</h2>
-						<button onClick={addBenefit} className="bg-primary-yellow text-black px-3 py-1 rounded">Add Benefit</button>
+						<button onClick={addBenefit} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Benefit</button>
 					</div>
 					{benefits.map((bn, idx) => (
 						<div key={bn.id} className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto_auto_auto] gap-3 items-start border-b border-white/10 pb-3 mb-3">
@@ -189,13 +189,13 @@ export default function AdminParticipation() {
 								placeholder="Description"
 							/>
 							<div className="flex gap-2 justify-end">
-								<button onClick={() => moveItem("participate_benefits", benefits, idx, -1)} className="px-2 py-1 bg-white/10 rounded">Up</button>
-								<button onClick={() => moveItem("participate_benefits", benefits, idx, 1)} className="px-2 py-1 bg-white/10 rounded">Down</button>
+								<button onClick={() => moveItem("participate_benefits", benefits, idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+								<button onClick={() => moveItem("participate_benefits", benefits, idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
 							</div>
-							<button onClick={() => toggleVisibility("participate_benefits", bn.id, bn.visible)} className="px-2 py-1 bg-white/10 rounded">
+							<button onClick={() => toggleVisibility("participate_benefits", bn.id, bn.visible)} className="px-2 py-1 bg-white/10 rounded-full">
 								{bn.visible === false ? "Enable" : "Disable"}
 							</button>
-							<button onClick={() => deleteBenefit(bn.id)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+							<button onClick={() => deleteBenefit(bn.id)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 						</div>
 					))}
 				</section>
@@ -204,7 +204,7 @@ export default function AdminParticipation() {
 				<section className="bg-white/5 rounded-xl p-6 space-y-4">
 					<div className="flex items-center justify-between">
 						<h2 className="text-xl font-semibold">Complementary</h2>
-						<button onClick={addComplimentary} className="bg-primary-yellow text-black px-3 py-1 rounded">Add Item</button>
+						<button onClick={addComplimentary} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Item</button>
 					</div>
 					{complimentaries.map((c, idx) => (
 						<div key={c.id} className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto_auto] gap-3 items-start border-b border-white/10 pb-3 mb-3">
@@ -216,13 +216,13 @@ export default function AdminParticipation() {
 								placeholder="Item title"
 							/>
 							<div className="flex gap-2 justify-end">
-								<button onClick={() => moveItem("participate_complementary", complimentaries, idx, -1)} className="px-2 py-1 bg-white/10 rounded">Up</button>
-								<button onClick={() => moveItem("participate_complementary", complimentaries, idx, 1)} className="px-2 py-1 bg-white/10 rounded">Down</button>
+								<button onClick={() => moveItem("participate_complementary", complimentaries, idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+								<button onClick={() => moveItem("participate_complementary", complimentaries, idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
 							</div>
-							<button onClick={() => toggleVisibility("participate_complementary", c.id, c.visible)} className="px-2 py-1 bg-white/10 rounded">
+							<button onClick={() => toggleVisibility("participate_complementary", c.id, c.visible)} className="px-2 py-1 bg-white/10 rounded-full">
 								{c.visible === false ? "Enable" : "Disable"}
 							</button>
-							<button onClick={() => deleteComplimentary(c.id)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+							<button onClick={() => deleteComplimentary(c.id)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 						</div>
 					))}
 				</section>

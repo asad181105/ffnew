@@ -86,17 +86,17 @@ export default function AdminAwards() {
 				<section className="bg-white/5 rounded-xl p-6 space-y-4">
 					<div className="flex items-center justify-between">
 						<h2 className="text-xl font-semibold">Last Year Winners</h2>
-						<button onClick={addWinner} className="bg-primary-yellow text-black px-3 py-1 rounded">Add Winner</button>
+						<button onClick={addWinner} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Winner</button>
 					</div>
 					{winners.map((w, idx) => (
 						<div key={w.id} className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto_auto_auto_auto] gap-3 items-center border-b border-white/10 pb-3 mb-3">
 							<input value={w.name} onChange={(e) => setWinners((arr) => arr.map((x) => x.id === w.id ? (saveWinner({ ...w, name: e.target.value }), { ...w, name: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Name" />
 							<input value={w.title} onChange={(e) => setWinners((arr) => arr.map((x) => x.id === w.id ? (saveWinner({ ...w, title: e.target.value }), { ...w, title: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Title of Award" />
 							<input value={w.image || ""} onChange={(e) => setWinners((arr) => arr.map((x) => x.id === w.id ? (saveWinner({ ...w, image: e.target.value }), { ...w, image: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Image URL" />
-							<button onClick={() => moveWinner(idx, -1)} className="px-2 py-1 bg-white/10 rounded">Up</button>
-							<button onClick={() => moveWinner(idx, 1)} className="px-2 py-1 bg-white/10 rounded">Down</button>
-							<button onClick={() => toggleWinner(w.id, w.visible)} className="px-2 py-1 bg-white/10 rounded">{w.visible === false ? "Enable" : "Disable"}</button>
-							<button onClick={() => deleteWinner(w.id)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+							<button onClick={() => moveWinner(idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+							<button onClick={() => moveWinner(idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
+							<button onClick={() => toggleWinner(w.id, w.visible)} className="px-2 py-1 bg-white/10 rounded-full">{w.visible === false ? "Enable" : "Disable"}</button>
+							<button onClick={() => deleteWinner(w.id)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 						</div>
 					))}
 				</section>
@@ -104,18 +104,18 @@ export default function AdminAwards() {
 				<section className="bg-white/5 rounded-xl p-6 space-y-4">
 					<h2 className="text-xl font-semibold mb-2">Why Awards Are Necessary</h2>
 					<textarea value={why} onChange={(e) => setWhy(e.target.value)} rows={6} className="w-full rounded-md bg-black/40 border border-white/10 p-3" placeholder="Rich text (HTML) or plain text" />
-					<button onClick={saveWhy} disabled={savingWhy} className="bg-primary-yellow text-black px-3 py-1 rounded">{savingWhy ? "Saving..." : "Save"}</button>
+					<button onClick={saveWhy} disabled={savingWhy} className="bg-primary-yellow text-black px-3 py-1 rounded-full">{savingWhy ? "Saving..." : "Save"}</button>
 				</section>
 
 				<section className="bg-white/5 rounded-xl p-6 space-y-4">
 					<div className="flex items-center justify-between">
 						<h2 className="text-xl font-semibold">Award Categories</h2>
-						<button onClick={addCategory} className="bg-primary-yellow text-black px-3 py-1 rounded">Add Category</button>
+						<button onClick={addCategory} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Category</button>
 					</div>
 					{categories.map((c) => (
 						<div key={c.id} className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 items-center border-b border-white/10 pb-3 mb-3">
 							<input value={c.name} onChange={(e) => setCategories((arr) => arr.map((x) => x.id === c.id ? (saveCategory({ ...c, name: e.target.value }), { ...c, name: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Category name" />
-							<button onClick={() => deleteCategory(c.id)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+							<button onClick={() => deleteCategory(c.id)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 						</div>
 					))}
 				</section>

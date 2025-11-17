@@ -72,7 +72,7 @@ export default function AdminLogin() {
 						<button
 							type="submit"
 							disabled={loading}
-							className="w-full bg-primary-yellow text-black font-semibold px-4 py-3 rounded-md"
+							className="w-full bg-primary-yellow text-black font-semibold px-4 py-3 rounded-full"
 						>
 							{loading ? "Signing in..." : "Sign In"}
 						</button>
@@ -81,7 +81,7 @@ export default function AdminLogin() {
 						<button
 							onClick={signInDefault}
 							disabled={loading}
-							className="w-full bg-white/10 hover:bg-white/15 text-white font-semibold px-4 py-3 rounded-md"
+							className="w-full bg-white/10 hover:bg-white/15 text-white font-semibold px-4 py-3 rounded-full"
 						>
 							{loading ? "Signing in..." : "Use default admin"}
 						</button>

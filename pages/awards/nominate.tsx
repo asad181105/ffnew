@@ -58,8 +58,8 @@ export default function NominatePage() {
 	return (
 		<>
 			<Head><title>Nominate – Founders Fest Awards</title></Head>
-			<Navbar />
-			<main className="pt-20">
+			<Navbar variant="floating" />
+			<main className="pt-24 md:pt-28">
 				<section className="px-4 py-12 bg-gradient-to-b from-black to-black/95">
 					<div className="container mx-auto max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-10">
 						<div className="hidden lg:block rounded-xl bg-white/5 border border-white/10 p-6">
@@ -93,7 +93,7 @@ export default function NominatePage() {
 								</div>
 								<input name="payment_number" value={form.payment_number || ""} onChange={handleChange} placeholder="Payment number" className="w-full rounded-md bg-black/40 border border-white/10 p-3" />
 								<input name="payment_screenshot_url" value={form.payment_screenshot_url || ""} onChange={handleChange} placeholder="Payment screenshot URL" className="w-full rounded-md bg-black/40 border border-white/10 p-3" />
-								<button type="submit" disabled={submitting} className="w-full bg-primary-yellow text-black font-semibold px-4 py-3 rounded-md">{submitting ? "Submitting..." : "Submit Nomination"}</button>
+								<button type="submit" disabled={submitting} className="w-full bg-primary-yellow text-black font-semibold px-4 py-3 rounded-full">{submitting ? "Submitting..." : "Submit Nomination"}</button>
 							</form>
 							{success && <p className="mt-4 text-green-400">{success}</p>}
 							{error && <p className="mt-4 text-red-400">{error}</p>}

@@ -1,123 +1,130 @@
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const Navbar = () => {
-  const router = useRouter()
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+type NavbarVariant = "floating" | "static";
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+const navItems = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Participate", href: "/participate" },
+  { name: "Awards", href: "/awards" },
+  { name: "Partners", href: "/partners" },
+  { name: "Contact", href: "/contact" },
+];
 
-  const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
-    { href: '/participate', label: 'Be a Part' },
-    { href: '/awards', label: 'Awards' },
-    { href: '/team', label: 'Team' },
-    { href: '/partners', label: 'Partners' },
-    { href: '/contact', label: 'Contact' },
-    { href: '/register', label: 'Register' },
-  ]
+export default function Navbar({ variant = "static" }: { variant?: NavbarVariant }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
+
+  const wrapperClasses =
+    variant === "floating"
+      ? "absolute top-6 left-1/2 z-50 w-full max-w-6xl -translate-x-1/2 px-4"
+      : "relative z-40 w-full px-4 pt-6 sm:px-6 lg:px-8";
+
+  const navClasses =
+    "flex items-center justify-between gap-6 rounded-full border border-white/10 bg-white/10 px-6 py-0.5 text-white backdrop-blur-2xl shadow-lg shadow-black/20";
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="absolute top-0 left-0 right-0 z-50 bg-transparent transition-all duration-300"
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <motion.img
-              src="/logo.png"
-              alt="Founders Fest"
-              whileHover={{ scale: 1.05 }}
-              className="h-24 md:h-30 w-auto"
-            />
-          </Link>
+    <div className={wrapperClasses}>
+      <motion.nav
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className={navClasses}
+      >
+        <Link href="/" className="flex items-center gap-1">
+          <img src="/logo.png" className="h-16 w-auto" alt="Founders Fest" />
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => {
-              const isActive = router.pathname === link.href
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="relative group px-3 py-2 rounded-lg transition-all duration-300"
-                >
-                  {/* Yellow background box on hover and active */}
-                  <motion.div
-                    className={`absolute inset-0 bg-primary-yellow rounded-lg ${
-                      isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                    }`}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <span
-                    className={`relative z-10 font-gta font-medium text-xl transition-colors duration-300 ${
-                      isActive
-                        ? 'text-primary-black'
-                        : 'text-primary-white group-hover:text-primary-black'
-                    }`}
-                  >
-                    {link.label}
-                  </span>
-                </Link>
-              )
-            })}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-primary-white hover:text-primary-yellow transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+        <div className="hidden items-center gap-6 text-lg font-medium md:flex font-gta">
+          {navItems.map((item) => {
+            const isActive =
+              item.href === "/"
+                ? router.pathname === item.href
+                : router.pathname.startsWith(item.href);
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "transition-colors hover:text-primary-yellow font-gta",
+                  isActive ? "text-primary-yellow" : "text-white/70"
+                )}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </div>
 
-        {/* Mobile Navigation */}
+        <div className="hidden items-center gap-3 md:flex">
+          {/* <Link
+            href="/register"
+            className="rounded-full border border-primary-yellow px-4 py-2 text-sm font-semibold text-white hover:bg-primary-yellow hover:text-black transition-colors font-gta"
+          >
+            Try for free
+          </Link> */}
+          <Link
+            href="/register"
+            className="rounded-full bg-primary-yellow px-4 py-2 text-sm font-semibold text-black hover:bg-primary-yellow/90 transition-colors font-gta"
+          >
+            Register
+          </Link>
+        </div>
+
+        <button
+          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          className="rounded-full border border-white/20 p-2 text-white md:hidden"
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </motion.nav>
+
+      <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden py-4 space-y-2 bg-black/80 backdrop-blur-sm rounded-lg mt-2"
+            transition={{ duration: 0.25 }}
+            className="mt-4 overflow-hidden rounded-3xl border border-white/10 bg-white/10 backdrop-blur-2xl text-white md:hidden"
           >
-            {navLinks.map((link) => {
-              const isActive = router.pathname === link.href
-              return (
+            <div className="flex flex-col divide-y divide-white/10">
+              {navItems.map((item) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={item.name}
+                  href={item.href}
+                  className="px-6 py-4 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-colors font-gta"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`relative block px-4 py-2 rounded-lg transition-all duration-300 font-gta font-medium text-xl ${
-                    isActive
-                      ? 'bg-primary-yellow text-primary-black'
-                      : 'text-primary-white hover:bg-primary-yellow hover:text-primary-black'
-                  }`}
                 >
-                  {link.label}
+                  {item.name}
                 </Link>
-              )
-            })}
+              ))}
+              <div className="flex items-center justify-between gap-2 px-6 py-4">
+                <Link
+                  href="/register"
+                  className="flex-1 rounded-full border border-primary-yellow px-4 py-2 text-center text-sm font-semibold text-white hover:bg-primary-yellow hover:text-black transition-colors font-gta"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Try for free
+                </Link>
+                <Link
+                  href="/contact"
+                  className="flex-1 rounded-full bg-primary-yellow px-4 py-2 text-center text-sm font-semibold text-black hover:bg-primary-yellow/90 transition-colors font-gta"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Book a demo
+                </Link>
+              </div>
+            </div>
           </motion.div>
         )}
-      </div>
-    </motion.nav>
-  )
+      </AnimatePresence>
+    </div>
+  );
 }
-
-export default Navbar

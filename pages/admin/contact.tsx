@@ -52,13 +52,13 @@ export default function AdminContact() {
 					<div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-3">
 						<input value={newKey} onChange={(e) => setNewKey(e.target.value)} placeholder="key (e.g., phone1, email, address, venue, datetime, instagram, linkedin)" className="w-full rounded-md bg-black/40 border border-white/10 p-2" />
 						<input value={newValue} onChange={(e) => setNewValue(e.target.value)} placeholder="value" className="w-full rounded-md bg-black/40 border border-white/10 p-2" />
-						<button onClick={addItem} className="bg-primary-yellow text-black px-3 py-1 rounded">Add</button>
+						<button onClick={addItem} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add</button>
 					</div>
 					{items.map((it) => (
 						<div key={it.key} className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-3 items-center border-b border-white/10 pb-3 mb-3">
 							<input value={it.key} readOnly className="w-full rounded-md bg-black/40 border border-white/10 p-2 opacity-70" />
 							<input value={it.value} onChange={(e) => setItems((arr) => arr.map((x) => x.key === it.key ? (saveItem(it.key, e.target.value), { ...x, value: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" />
-							<button onClick={() => deleteItem(it.key)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+							<button onClick={() => deleteItem(it.key)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 						</div>
 					))}
 				</section>

@@ -5,9 +5,7 @@
 /* Black Mango Font Face Declarations */
 @font-face {
   font-family: 'Black Mango';
-  src: url('/fonts/BlackMango-Regular.woff2') format('woff2'),
-       url('/fonts/BlackMango-Regular.woff') format('woff'),
-       url('/fonts/BlackMango-Regular.ttf') format('truetype');
+  src: url('/fonts/BlackMango-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -15,9 +13,7 @@
 
 @font-face {
   font-family: 'Black Mango';
-  src: url('/fonts/BlackMango-Bold.woff2') format('woff2'),
-       url('/fonts/BlackMango-Bold.woff') format('woff'),
-       url('/fonts/BlackMango-Bold.ttf') format('truetype');
+  src: url('/fonts/BlackMango-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -25,9 +21,7 @@
 
 @font-face {
   font-family: 'Black Mango';
-  src: url('/fonts/BlackMango-Medium.woff2') format('woff2'),
-       url('/fonts/BlackMango-Medium.woff') format('woff'),
-       url('/fonts/BlackMango-Medium.ttf') format('truetype');
+  src: url('/fonts/BlackMango-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;

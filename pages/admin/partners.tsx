@@ -10,10 +10,10 @@ const Row = ({ p, onChange, onUp, onDown, onToggle, onDelete }: any) => (
 	<div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto_auto_auto_auto] gap-3 items-center border-b border-white/10 pb-3 mb-3">
 		<input value={p.name} onChange={(e) => onChange({ ...p, name: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Name" />
 		<input value={p.logo || ""} onChange={(e) => onChange({ ...p, logo: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Logo URL" />
-		<button onClick={onUp} className="px-2 py-1 bg-white/10 rounded">Up</button>
-		<button onClick={onDown} className="px-2 py-1 bg-white/10 rounded">Down</button>
-		<button onClick={onToggle} className="px-2 py-1 bg-white/10 rounded">{p.visible === false ? "Enable" : "Disable"}</button>
-		<button onClick={onDelete} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+		<button onClick={onUp} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+		<button onClick={onDown} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
+		<button onClick={onToggle} className="px-2 py-1 bg-white/10 rounded-full">{p.visible === false ? "Enable" : "Disable"}</button>
+		<button onClick={onDelete} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 	</div>
 );
 
@@ -83,7 +83,7 @@ export default function AdminPartners() {
 				<section className="bg-white/5 rounded-xl p-6">
 					<div className="flex items-center justify-between mb-4">
 						<h2 className="text-xl font-semibold">Government Partners</h2>
-						<button onClick={() => addItem("partners_gov", setGov)} className="bg-primary-yellow text-black px-3 py-1 rounded">Add</button>
+						<button onClick={() => addItem("partners_gov", setGov)} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add</button>
 					</div>
 					{gov.map((p, idx) => (
 						<Row
@@ -101,7 +101,7 @@ export default function AdminPartners() {
 				<section className="bg-white/5 rounded-xl p-6">
 					<div className="flex items-center justify-between mb-4">
 						<h2 className="text-xl font-semibold">Sponsors & Partners</h2>
-						<button onClick={() => addItem("partners_sponsors", setSponsors)} className="bg-primary-yellow text-black px-3 py-1 rounded">Add</button>
+						<button onClick={() => addItem("partners_sponsors", setSponsors)} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add</button>
 					</div>
 					{sponsors.map((p, idx) => (
 						<Row
@@ -119,17 +119,17 @@ export default function AdminPartners() {
 				<section className="bg-white/5 rounded-xl p-6">
 					<div className="flex items-center justify-between mb-4">
 						<h2 className="text-xl font-semibold">Speakers & Influencers</h2>
-						<button onClick={() => addItem("partners_influencers", setInfluencers, { designation: "" })} className="bg-primary-yellow text-black px-3 py-1 rounded">Add</button>
+						<button onClick={() => addItem("partners_influencers", setInfluencers, { designation: "" })} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add</button>
 					</div>
 					{influencers.map((p, idx) => (
 						<div key={p.id} className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto_auto_auto_auto] gap-3 items-center border-b border-white/10 pb-3 mb-3">
 							<input value={p.name} onChange={(e) => setInfluencers((arr) => arr.map((x) => x.id === p.id ? (saveItem("partners_influencers", { ...p, name: e.target.value }), { ...p, name: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Name" />
 							<input value={p.designation || ""} onChange={(e) => setInfluencers((arr) => arr.map((x) => x.id === p.id ? (saveItem("partners_influencers", { ...p, designation: e.target.value }), { ...p, designation: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Designation" />
 							<input value={p.logo || ""} onChange={(e) => setInfluencers((arr) => arr.map((x) => x.id === p.id ? (saveItem("partners_influencers", { ...p, logo: e.target.value }), { ...p, logo: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Image URL" />
-							<button onClick={() => moveItem("partners_influencers", influencers, idx, -1)} className="px-2 py-1 bg-white/10 rounded">Up</button>
-							<button onClick={() => moveItem("partners_influencers", influencers, idx, 1)} className="px-2 py-1 bg-white/10 rounded">Down</button>
-							<button onClick={() => toggleItem("partners_influencers", p.id, p.visible)} className="px-2 py-1 bg-white/10 rounded">{p.visible === false ? "Enable" : "Disable"}</button>
-							<button onClick={() => deleteItem("partners_influencers", p.id)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+							<button onClick={() => moveItem("partners_influencers", influencers, idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+							<button onClick={() => moveItem("partners_influencers", influencers, idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
+							<button onClick={() => toggleItem("partners_influencers", p.id, p.visible)} className="px-2 py-1 bg-white/10 rounded-full">{p.visible === false ? "Enable" : "Disable"}</button>
+							<button onClick={() => deleteItem("partners_influencers", p.id)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 						</div>
 					))}
 				</section>

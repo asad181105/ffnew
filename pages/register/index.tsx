@@ -175,7 +175,7 @@ export default function RegisterAttendeePage() {
 							<button
 								type="submit"
 								disabled={submitting}
-								className="w-full bg-primary-yellow text-primary-black px-4 py-3 rounded-md font-semibold hover:opacity-90 disabled:opacity-60"
+								className="w-full bg-primary-yellow text-primary-black px-4 py-3 rounded-full font-semibold hover:opacity-90 disabled:opacity-60"
 							>
 								{submitting ? "Submitting..." : "Submit Registration"}
 							</button>

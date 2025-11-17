@@ -90,7 +90,7 @@ export default function AdminHomeSettings() {
 					<button
 						onClick={handleSave}
 						disabled={saving}
-						className="bg-primary-yellow text-primary-black px-4 py-2 rounded-md font-semibold"
+						className="bg-primary-yellow text-primary-black px-4 py-2 rounded-full font-semibold"
 					>
 						{saving ? "Saving..." : "Save"}
 					</button>

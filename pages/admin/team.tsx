@@ -52,7 +52,7 @@ export default function AdminTeam() {
 					<h1 className="text-2xl font-bold text-primary-yellow">Team Members</h1>
 					<div className="flex items-center gap-3">
 						<Link href="/admin" className="text-sm text-primary-yellow underline">Back to Admin</Link>
-						<button onClick={addMember} className="bg-primary-yellow text-black px-3 py-1 rounded">Add Member</button>
+						<button onClick={addMember} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Member</button>
 					</div>
 				</div>
 				<section className="bg-white/5 rounded-xl p-6">
@@ -63,10 +63,10 @@ export default function AdminTeam() {
 							<input value={m.responsibility || ""} onChange={(e) => setMembers((arr) => arr.map((x) => x.id === m.id ? (saveMember({ ...m, responsibility: e.target.value }), { ...m, responsibility: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Responsibility" />
 							<input value={m.social_url || ""} onChange={(e) => setMembers((arr) => arr.map((x) => x.id === m.id ? (saveMember({ ...m, social_url: e.target.value }), { ...m, social_url: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Social URL" />
 							<input value={m.image || ""} onChange={(e) => setMembers((arr) => arr.map((x) => x.id === m.id ? (saveMember({ ...m, image: e.target.value }), { ...m, image: e.target.value }) : x))} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Image URL" />
-							<button onClick={() => moveMember(idx, -1)} className="px-2 py-1 bg-white/10 rounded">Up</button>
-							<button onClick={() => moveMember(idx, 1)} className="px-2 py-1 bg-white/10 rounded">Down</button>
-							<button onClick={() => toggleMember(m.id, m.visible)} className="px-2 py-1 bg-white/10 rounded">{m.visible === false ? "Enable" : "Disable"}</button>
-							<button onClick={() => deleteMember(m.id)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+							<button onClick={() => moveMember(idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+							<button onClick={() => moveMember(idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
+							<button onClick={() => toggleMember(m.id, m.visible)} className="px-2 py-1 bg-white/10 rounded-full">{m.visible === false ? "Enable" : "Disable"}</button>
+							<button onClick={() => deleteMember(m.id)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 						</div>
 					))}
 				</section>

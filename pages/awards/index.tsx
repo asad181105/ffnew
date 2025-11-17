@@ -40,8 +40,8 @@ export default function AwardsPage() {
 				<title>Awards – Founders Fest</title>
 				<meta name="description" content="Awards, last year winners, and nomination at Founders Fest." />
 			</Head>
-			<Navbar />
-			<main className="pt-20">
+			<Navbar variant="floating" />
+			<main className="pt-24 md:pt-28">
 				{/* Last Year Winners */}
 				<section className="px-4 py-16 bg-gradient-to-b from-black to-black/95">
 					<div className="container mx-auto max-w-6xl">
@@ -71,7 +71,7 @@ export default function AwardsPage() {
 				{/* Nominate CTA */}
 				<section className="px-4 py-16 bg-gradient-to-b from-black to-black/95">
 					<div className="container mx-auto max-w-5xl text-center">
-						<Link href="/awards/nominate" className="inline-block bg-primary-yellow text-black font-semibold px-6 py-3 rounded-md hover:opacity-90">Nominate Yourself</Link>
+						<Link href="/awards/nominate" className="inline-block bg-primary-yellow text-black font-semibold px-6 py-3 rounded-full hover:opacity-90">Nominate Yourself</Link>
 					</div>
 				</section>
 			</main>

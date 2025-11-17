@@ -6,11 +6,10 @@ const items = [
 	{ href: "/admin/home", title: "Home Page Settings", desc: "Hero video, autoplay, fallback" },
 	{ href: "/admin/attendees", title: "Attendees", desc: "View, approve/reject, export" },
 	{ href: "/admin/email", title: "Email & Ticket", desc: "Subject, body, sender, auto-send" },
-	{ href: "/admin/about", title: "About Page Controls", desc: "2023/2024 metrics, images, rotation" },
+	{ href: "/admin/about", title: "About Page Controls", desc: "2023/2024 metrics, images, rotation, team" },
 	{ href: "/admin/participation", title: "Business Participation Settings", desc: "Why Us, Benefits, Complementary" },
 	{ href: "/admin/partners", title: "Partners Page Settings", desc: "Gov, Sponsors, Influencers" },
 	{ href: "/admin/awards", title: "Awards Module", desc: "Winners, Why awards, Categories" },
-	{ href: "/admin/team", title: "Team Members", desc: "Manage team grid" },
 	{ href: "/admin/contact", title: "Contact Settings", desc: "Contact info & queries" },
 ];
 

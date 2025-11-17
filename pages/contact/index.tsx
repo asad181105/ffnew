@@ -63,8 +63,8 @@ export default function ContactPage() {
 	return (
 		<>
 			<Head><title>Contact – Founders Fest</title></Head>
-			<Navbar />
-			<main className="pt-20">
+			<Navbar variant="floating" />
+			<main className="pt-24 md:pt-28">
 				<section className="px-4 py-16 bg-gradient-to-b from-black to-black/95">
 					<div className="container mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-10">
 						<div>
@@ -73,7 +73,7 @@ export default function ContactPage() {
 								<input value={name} onChange={(e) => setName(e.target.value)} required placeholder="Name" className="w-full rounded-md bg-black/40 border border-white/10 p-3" />
 								<input value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} required placeholder="WhatsApp" className="w-full rounded-md bg-black/40 border border-white/10 p-3" />
 								<textarea value={query} onChange={(e) => setQuery(e.target.value)} required placeholder="Query" rows={4} className="w-full rounded-md bg-black/40 border border-white/10 p-3" />
-								<button type="submit" disabled={submitting} className="w-full bg-primary-yellow text-black font-semibold px-4 py-3 rounded-md">{submitting ? "Sending..." : "Send"}</button>
+								<button type="submit" disabled={submitting} className="w-full bg-primary-yellow text-black font-semibold px-4 py-3 rounded-full">{submitting ? "Sending..." : "Send"}</button>
 								{message && <p className="text-white/80">{message}</p>}
 							</form>
 						</div>

@@ -16,9 +16,12 @@ type Section = {
 	section_enabled?: boolean;
 };
 
+type Member = { id?: number; name: string; designation: string; responsibility?: string | null; image?: string | null; social_url?: string | null; visible?: boolean | null; order?: number | null };
+
 export default function AdminAbout() {
-	const [tab, setTab] = useState<"2023" | "2024">("2023");
+	const [tab, setTab] = useState<"2023" | "2024" | "team">("2023");
 	const [section, setSection] = useState<Section | null>(null);
+	const [members, setMembers] = useState<Member[]>([]);
 	const year = tab === "2023" ? 2023 : 2024;
 
 	const load = async () => {
@@ -50,7 +53,18 @@ export default function AdminAbout() {
 		}
 	};
 
-	useEffect(() => { load(); }, [tab]);
+	const loadTeam = async () => {
+		const { data } = await supabase.from("team_members").select("*").order("order", { ascending: true });
+		setMembers((data || []) as Member[]);
+	};
+
+	useEffect(() => {
+		if (tab === "team") {
+			loadTeam();
+		} else {
+			load();
+		}
+	}, [tab]);
 
 	const save = async (partial?: Partial<Section>) => {
 		if (!section) return;
@@ -125,8 +139,9 @@ export default function AdminAbout() {
 					<Link href="/admin" className="text-sm text-primary-yellow underline">Back to Admin</Link>
 				</div>
 				<div className="flex gap-3">
-					<button onClick={() => setTab("2023")} className={`px-3 py-1 rounded ${tab === "2023" ? "bg-primary-yellow text-black" : "bg-white/10"}`}>Founders Fest 2023</button>
-					<button onClick={() => setTab("2024")} className={`px-3 py-1 rounded ${tab === "2024" ? "bg-primary-yellow text-black" : "bg-white/10"}`}>Founders Fest 2024</button>
+					<button onClick={() => setTab("2023")} className={`px-3 py-1 rounded-full ${tab === "2023" ? "bg-primary-yellow text-black" : "bg-white/10"}`}>Founders Fest 2023</button>
+					<button onClick={() => setTab("2024")} className={`px-3 py-1 rounded-full ${tab === "2024" ? "bg-primary-yellow text-black" : "bg-white/10"}`}>Founders Fest 2024</button>
+					<button onClick={() => setTab("team")} className={`px-3 py-1 rounded-full ${tab === "team" ? "bg-primary-yellow text-black" : "bg-white/10"}`}>Team</button>
 				</div>
 
 				{section && (
@@ -153,16 +168,16 @@ export default function AdminAbout() {
 						<section className="bg-white/5 rounded-xl p-6 space-y-4">
 							<div className="flex items-center justify-between">
 								<h2 className="text-xl font-semibold">Metrics Manager</h2>
-								<button onClick={addMetric} className="bg-primary-yellow text-black px-3 py-1 rounded">Add Metric</button>
+								<button onClick={addMetric} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Metric</button>
 							</div>
 							{section.metrics.sort((a, b) => (a.order || 0) - (b.order || 0)).map((m, idx) => (
 								<div key={idx} className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto_auto_auto_auto] gap-3 items-center border-b border-white/10 pb-3 mb-3">
 									<input value={m.title} onChange={(e) => updateMetric(idx, { ...m, title: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Title" />
 									<input value={m.value} onChange={(e) => updateMetric(idx, { ...m, value: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Value" />
-									<button onClick={() => moveMetric(idx, -1)} className="px-2 py-1 bg-white/10 rounded">Up</button>
-									<button onClick={() => moveMetric(idx, 1)} className="px-2 py-1 bg-white/10 rounded">Down</button>
-									<button onClick={() => updateMetric(idx, { ...m, visible: m.visible === false ? true : false })} className="px-2 py-1 bg-white/10 rounded">{m.visible === false ? "Enable" : "Disable"}</button>
-									<button onClick={() => deleteMetric(idx)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+									<button onClick={() => moveMetric(idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+									<button onClick={() => moveMetric(idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
+									<button onClick={() => updateMetric(idx, { ...m, visible: m.visible === false ? true : false })} className="px-2 py-1 bg-white/10 rounded-full">{m.visible === false ? "Enable" : "Disable"}</button>
+									<button onClick={() => deleteMetric(idx)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 								</div>
 							))}
 						</section>
@@ -170,18 +185,71 @@ export default function AdminAbout() {
 						<section className="bg-white/5 rounded-xl p-6 space-y-4">
 							<div className="flex items-center justify-between">
 								<h2 className="text-xl font-semibold">Image Manager</h2>
-								<button onClick={addImage} className="bg-primary-yellow text-black px-3 py-1 rounded">Add Image</button>
+								<button onClick={addImage} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Image</button>
 							</div>
 							{section.images.sort((a, b) => (a.order || 0) - (b.order || 0)).map((img, idx) => (
 								<div key={idx} className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto_auto_auto_auto] gap-3 items-center border-b border-white/10 pb-3 mb-3">
 									<input value={img.url} onChange={(e) => updateImage(idx, { ...img, url: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Image URL (.jpg/.jpeg/.png/.webp)" />
 									<input value={img.alt || ''} onChange={(e) => updateImage(idx, { ...img, alt: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="ALT text" />
-									<button onClick={() => moveImage(idx, -1)} className="px-2 py-1 bg-white/10 rounded">Up</button>
-									<button onClick={() => moveImage(idx, 1)} className="px-2 py-1 bg-white/10 rounded">Down</button>
-									<button onClick={() => updateImage(idx, { ...img, visible: img.visible === false ? true : false })} className="px-2 py-1 bg-white/10 rounded">{img.visible === false ? "Enable" : "Disable"}</button>
-									<button onClick={() => deleteImage(idx)} className="px-2 py-1 bg-red-500/80 rounded">Delete</button>
+									<button onClick={() => moveImage(idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+									<button onClick={() => moveImage(idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
+									<button onClick={() => updateImage(idx, { ...img, visible: img.visible === false ? true : false })} className="px-2 py-1 bg-white/10 rounded-full">{img.visible === false ? "Enable" : "Disable"}</button>
+									<button onClick={() => deleteImage(idx)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
 								</div>
 							))}
+						</section>
+					</>
+				)}
+
+				{tab === "team" && (
+					<>
+						<section className="bg-white/5 rounded-xl p-6 space-y-4">
+							<div className="flex items-center justify-between">
+								<h2 className="text-xl font-semibold">Team Members</h2>
+								<button onClick={async () => {
+									await supabase.from("team_members").insert([{ name: "New Member", designation: "Role", visible: true }]);
+									loadTeam();
+								}} className="bg-primary-yellow text-black px-3 py-1 rounded-full">Add Member</button>
+							</div>
+							{members.map((m, idx) => {
+								const saveMember = async (updated: Member) => {
+									if (!updated.id) return;
+									await supabase.from("team_members").update(updated).eq("id", updated.id);
+									loadTeam();
+								};
+								const deleteMember = async (id?: number) => {
+									if (!id) return;
+									await supabase.from("team_members").delete().eq("id", id);
+									loadTeam();
+								};
+								const toggleMember = async (id?: number, current?: boolean | null) => {
+									if (!id) return;
+									await supabase.from("team_members").update({ visible: !current }).eq("id", id);
+									loadTeam();
+								};
+								const moveMember = async (index: number, dir: -1 | 1) => {
+									const t = index + dir;
+									if (t < 0 || t >= members.length) return;
+									const a = members[index], b = members[t];
+									const aOrder = a.order ?? index, bOrder = b.order ?? t;
+									await supabase.from("team_members").update({ order: bOrder }).eq("id", a.id);
+									await supabase.from("team_members").update({ order: aOrder }).eq("id", b.id);
+									loadTeam();
+								};
+								return (
+									<div key={m.id} className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_auto_auto_auto_auto] gap-3 items-center border-b border-white/10 pb-3 mb-3">
+										<input value={m.name} onChange={(e) => saveMember({ ...m, name: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Name" />
+										<input value={m.designation} onChange={(e) => saveMember({ ...m, designation: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Designation" />
+										<input value={m.responsibility || ""} onChange={(e) => saveMember({ ...m, responsibility: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Responsibility" />
+										<input value={m.social_url || ""} onChange={(e) => saveMember({ ...m, social_url: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Social URL" />
+										<input value={m.image || ""} onChange={(e) => saveMember({ ...m, image: e.target.value })} className="w-full rounded-md bg-black/40 border border-white/10 p-2" placeholder="Image URL" />
+										<button onClick={() => moveMember(idx, -1)} className="px-2 py-1 bg-white/10 rounded-full">Up</button>
+										<button onClick={() => moveMember(idx, 1)} className="px-2 py-1 bg-white/10 rounded-full">Down</button>
+										<button onClick={() => toggleMember(m.id, m.visible)} className="px-2 py-1 bg-white/10 rounded-full">{m.visible === false ? "Enable" : "Disable"}</button>
+										<button onClick={() => deleteMember(m.id)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
+									</div>
+								);
+							})}
 						</section>
 					</>
 				)}

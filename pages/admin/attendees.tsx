@@ -141,7 +141,7 @@ export default function AdminAttendees() {
 						<button
 						onClick={handleExport}
 						disabled={exporting}
-						className="bg-primary-yellow text-primary-black px-4 py-2 rounded-md font-semibold"
+						className="bg-primary-yellow text-primary-black px-4 py-2 rounded-full font-semibold"
 					>
 						{exporting ? "Exporting..." : "Export CSV"}
 						</button>
@@ -180,7 +180,7 @@ export default function AdminAttendees() {
 										</button>
 										<button
 											onClick={() => updateStatus(a.id, "rejected")}
-											className="bg-red-500/80 hover:bg-red-500 text-black px-3 py-1 rounded"
+											className="bg-red-500/80 hover:bg-red-500 text-black px-3 py-1 rounded-full"
 										>
 											Reject
 										</button>
