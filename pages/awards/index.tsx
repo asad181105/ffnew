@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
+import { ImageAutoSlider } from "@/components/ui/image-auto-slider";
 
 type Winner = { id: number; name: string; title: string; image?: string | null; visible?: boolean | null; order?: number | null };
 type RichText = { id: number; content: string };
@@ -282,6 +283,28 @@ export default function AwardsPage() {
 						</div>
 					</div>
 				</section>
+
+				{/* Awards Images Slider */}
+				{visible.filter(w => w.image).length > 0 && (
+					<section className="px-4 py-8 md:py-12 bg-gradient-to-b from-black to-black/95">
+						<div className="container mx-auto max-w-7xl">
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								viewport={{ once: true }}
+								transition={{ duration: 0.6 }}
+							>
+							<ImageAutoSlider
+								images={visible.filter(w => w.image).map(w => w.image!)}
+								direction="left"
+								speed={25}
+								imageSize="md"
+								className="py-8"
+							/>
+							</motion.div>
+						</div>
+					</section>
+				)}
 
 				{/* Last Year Winners */}
 				<section className="px-4 py-16 bg-gradient-to-b from-black to-black/95">

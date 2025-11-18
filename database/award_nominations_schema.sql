@@ -35,6 +35,12 @@ CREATE INDEX IF NOT EXISTS idx_award_nominations_created_at ON award_nominations
 -- Enable RLS
 ALTER TABLE award_nominations ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies if they exist
+DROP POLICY IF EXISTS "award_nominations_insert_public" ON award_nominations;
+DROP POLICY IF EXISTS "award_nominations_select_admins" ON award_nominations;
+DROP POLICY IF EXISTS "award_nominations_update_admins" ON award_nominations;
+DROP POLICY IF EXISTS "award_nominations_delete_admins" ON award_nominations;
+
 -- Public can insert nominations
 CREATE POLICY "award_nominations_insert_public"
 ON award_nominations FOR INSERT
@@ -80,6 +86,11 @@ VALUES ('award-nominations', 'award-nominations', true)
 ON CONFLICT (id) DO NOTHING;
 
 -- Storage policies for award-nominations bucket
+-- Drop existing storage policies if they exist
+DROP POLICY IF EXISTS "Allow public uploads for award nominations" ON storage.objects;
+DROP POLICY IF EXISTS "Allow public reads for award nominations" ON storage.objects;
+DROP POLICY IF EXISTS "Allow admin deletes for award nominations" ON storage.objects;
+
 -- Allow public uploads (for form submissions)
 CREATE POLICY "Allow public uploads for award nominations"
 ON storage.objects FOR INSERT

@@ -31,7 +31,13 @@ module.exports = {
           '50%': { transform: 'translateY(-20px)' },
         },
       },
+      perspective: {
+        '1000': '1000px',
+      },
     },
   },
   plugins: [],
+  safelist: [
+    'perspective-1000',
+  ],
 }

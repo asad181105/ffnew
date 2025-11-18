@@ -1,21 +1,30 @@
 -- Database Schema for Participate Page Carousel Images
 -- Run this SQL in your Supabase SQL Editor
 
+-- Drop existing objects if they exist (in reverse order of dependencies)
+DROP TRIGGER IF EXISTS update_carousel_images_updated_at ON participate_carousel_images;
+DROP INDEX IF EXISTS idx_carousel_images_order;
+DROP TABLE IF EXISTS participate_carousel_images CASCADE;
+
 -- Create the participate_carousel_images table
-CREATE TABLE IF NOT EXISTS participate_carousel_images (
+CREATE TABLE participate_carousel_images (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   url TEXT NOT NULL,
-  order INTEGER DEFAULT 0,
+  "order" INTEGER DEFAULT 0,
   visible BOOLEAN DEFAULT true,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Create an index on order for faster sorting
-CREATE INDEX IF NOT EXISTS idx_carousel_images_order ON participate_carousel_images(order ASC);
+CREATE INDEX idx_carousel_images_order ON participate_carousel_images("order" ASC);
 
 -- Enable Row Level Security (RLS)
 ALTER TABLE participate_carousel_images ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if they exist
+DROP POLICY IF EXISTS "Allow public reads" ON participate_carousel_images;
+DROP POLICY IF EXISTS "Allow authenticated writes" ON participate_carousel_images;
 
 -- Create a policy to allow public reads
 CREATE POLICY "Allow public reads" ON participate_carousel_images
@@ -24,6 +33,7 @@ CREATE POLICY "Allow public reads" ON participate_carousel_images
   USING (visible = true);
 
 -- Create a policy to allow authenticated users to insert/update/delete (admin access)
+-- Note: This should ideally check for admin role, but for now allows all authenticated users
 CREATE POLICY "Allow authenticated writes" ON participate_carousel_images
   FOR ALL
   TO authenticated

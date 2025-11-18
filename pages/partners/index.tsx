@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
+import { ImageAutoSlider } from "@/components/ui/image-auto-slider";
 
 type Partner = { id: number; name: string; logo?: string | null; designation?: string | null; visible?: boolean | null; order?: number | null };
 
@@ -47,47 +48,95 @@ export default function PartnersPage() {
 
 	const visible = <T extends { visible?: boolean | null }>(arr: T[]) => arr.filter((x) => x.visible !== false);
 
-	const Section = ({ title, gov, sponsors, influencers }: { title: string; gov: Partner[]; sponsors: Partner[]; influencers: Partner[]; }) => (
-		<section className="px-4 py-16 bg-gradient-to-b from-black to-black/95">
-			<div className="container mx-auto max-w-6xl">
-				<motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-3xl md:text-4xl font-bold text-primary-yellow mb-8">{title}</motion.h2>
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-					<div>
-						<h3 className="text-xl font-semibold text-white mb-4">Government Partners</h3>
-						<div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-							{visible(gov).map((p) => (
-								<div key={p.id} className="bg-white/5 border border-white/10 rounded-lg p-4 flex items-center justify-center">
-									{p.logo ? <img src={p.logo} alt={p.name} className="max-h-16 object-contain" /> : <span className="text-white/80">{p.name}</span>}
-								</div>
-							))}
-						</div>
-					</div>
-					<div>
-						<h3 className="text-xl font-semibold text-white mb-4">Sponsors & Partners</h3>
-						<div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-							{visible(sponsors).map((p) => (
-								<div key={p.id} className="bg-white/5 border border-white/10 rounded-lg p-4 flex items-center justify-center">
-									{p.logo ? <img src={p.logo} alt={p.name} className="max-h-16 object-contain" /> : <span className="text-white/80">{p.name}</span>}
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-				<div className="mt-10">
-					<h3 className="text-xl font-semibold text-white mb-4">Speakers & Influencers</h3>
-					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-						{visible(influencers).map((p) => (
-							<div key={p.id} className="bg-white/5 border border-white/10 rounded-lg p-4 text-center">
-								{p.logo && <img src={p.logo} alt={p.name} className="mx-auto h-20 w-20 object-cover rounded-full mb-3" />}
-								<div className="text-white font-medium">{p.name}</div>
-								{p.designation && <div className="text-white/70 text-sm">{p.designation}</div>}
+	const YearSection = ({ 
+		title, 
+		partners, 
+		sponsors 
+	}: { 
+		title: string; 
+		partners: Partner[]; 
+		sponsors: Partner[]; 
+	}) => {
+		const partnerImages = visible(partners).filter(p => p.logo).map(p => p.logo!);
+		const sponsorImages = visible(sponsors).filter(p => p.logo).map(p => p.logo!);
+
+		return (
+			<section className="px-4 py-8 md:py-12 bg-gradient-to-b from-black to-black/95">
+				<div className="container mx-auto max-w-7xl">
+					<motion.h2 
+						initial={{ opacity: 0, y: 20 }} 
+						whileInView={{ opacity: 1, y: 0 }} 
+						viewport={{ once: true }} 
+						transition={{ duration: 0.6 }} 
+						className="text-2xl md:text-3xl font-bold text-primary-yellow mb-8 text-center"
+					>
+						{title}
+					</motion.h2>
+
+					{/* Partners Section - Two Opposite Moving Carousels */}
+					<div className="mb-12">
+						<motion.h3 
+							initial={{ opacity: 0, y: 20 }} 
+							whileInView={{ opacity: 1, y: 0 }} 
+							viewport={{ once: true }} 
+							transition={{ duration: 0.6 }} 
+							className="text-xl md:text-2xl font-semibold text-white mb-6 text-center"
+						>
+							Partners
+						</motion.h3>
+						{partnerImages.length > 0 ? (
+							<div className="space-y-6">
+								<ImageAutoSlider
+									images={partnerImages}
+									direction="left"
+									speed={25}
+									imageSize="md"
+									className="py-4"
+								/>
+								<ImageAutoSlider
+									images={partnerImages}
+									direction="right"
+									speed={30}
+									imageSize="md"
+									className="py-4"
+								/>
 							</div>
-						))}
+						) : (
+							<div className="text-center text-white/60 py-8">
+								No partner images available
+							</div>
+						)}
+					</div>
+
+					{/* Sponsors Section - One Carousel */}
+					<div>
+						<motion.h3 
+							initial={{ opacity: 0, y: 20 }} 
+							whileInView={{ opacity: 1, y: 0 }} 
+							viewport={{ once: true }} 
+							transition={{ duration: 0.6 }} 
+							className="text-xl md:text-2xl font-semibold text-white mb-6 text-center"
+						>
+							Sponsors
+						</motion.h3>
+						{sponsorImages.length > 0 ? (
+							<ImageAutoSlider
+								images={sponsorImages}
+								direction="left"
+								speed={25}
+								imageSize="md"
+								className="py-4"
+							/>
+						) : (
+							<div className="text-center text-white/60 py-8">
+								No sponsor images available
+							</div>
+						)}
 					</div>
 				</div>
-			</div>
-		</section>
-	);
+			</section>
+		);
+	};
 
 	return (
 		<>
@@ -97,8 +146,16 @@ export default function PartnersPage() {
 			</Head>
 			<Navbar variant="floating" />
 			<main className="pt-20 md:pt-28">
-				<Section title="2023 Partners" gov={gov2023} sponsors={sponsors2023} influencers={influencers2023} />
-				<Section title="2024 Partners" gov={gov2024} sponsors={sponsors2024} influencers={influencers2024} />
+				<YearSection 
+					title="2023 Partners & Sponsors" 
+					partners={gov2023} 
+					sponsors={sponsors2023} 
+				/>
+				<YearSection 
+					title="2024 Partners & Sponsors" 
+					partners={gov2024} 
+					sponsors={sponsors2024} 
+				/>
 			</main>
 			<Footer />
 		</>
