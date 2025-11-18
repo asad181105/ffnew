@@ -9,16 +9,19 @@ type Query = { id: number; created_at: string; name: string; whatsapp: string; q
 
 export default function AdminContact() {
 	const [items, setItems] = useState<KV[]>([]);
+	const [pageContent, setPageContent] = useState<KV[]>([]);
 	const [queries, setQueries] = useState<Query[]>([]);
 	const [newKey, setNewKey] = useState("");
 	const [newValue, setNewValue] = useState("");
 
 	const reload = async () => {
-		const [infoRes, qRes] = await Promise.all([
+		const [infoRes, contentRes, qRes] = await Promise.all([
 			supabase.from("contact_info").select("*"),
+			supabase.from("contact_page_content").select("*"),
 			supabase.from("contact_queries").select("*").order("created_at", { ascending: false }),
 		]);
 		setItems((infoRes.data || []) as any[]);
+		setPageContent((contentRes.data || []) as any[]);
 		setQueries((qRes.data || []) as any[]);
 	};
 	useEffect(() => { reload(); }, []);
@@ -36,6 +39,13 @@ export default function AdminContact() {
 		await supabase.from("contact_info").delete().eq("key", k);
 		reload();
 	};
+	const savePageContent = async (k: string, v: string) => {
+		await supabase.from("contact_page_content").upsert({ key: k, value: v }, { onConflict: "key" });
+	};
+	const deletePageContent = async (k: string) => {
+		await supabase.from("contact_page_content").delete().eq("key", k);
+		reload();
+	};
 
 	return (
 		<div className="min-h-screen bg-black text-white">
@@ -46,6 +56,18 @@ export default function AdminContact() {
 					<h1 className="text-2xl font-bold text-primary-yellow">Contact Settings</h1>
 					<Link href="/admin" className="text-sm text-primary-yellow underline">Back to Admin</Link>
 				</div>
+
+				<section className="bg-white/5 rounded-xl p-6 space-y-4">
+					<h2 className="text-xl font-semibold">Contact Page Content</h2>
+					<p className="text-white/70 text-sm mb-4">Manage the main contact page sections: section_title, section_subtitle, email_general, email_partnerships, email_academic, email_stalls, social_instagram, social_twitter, social_linkedin, team_note</p>
+					{pageContent.map((it) => (
+						<div key={it.key} className="grid grid-cols-1 md:grid-cols-[1fr_2fr_auto] gap-3 items-center border-b border-white/10 pb-3 mb-3">
+							<input value={it.key} readOnly className="w-full rounded-md bg-black/40 border border-white/10 p-2 opacity-70 text-sm" />
+							<textarea value={it.value} onChange={(e) => setPageContent((arr) => arr.map((x) => x.key === it.key ? (savePageContent(it.key, e.target.value), { ...x, value: e.target.value }) : x))} rows={it.key === "team_note" ? 3 : 1} className="w-full rounded-md bg-black/40 border border-white/10 p-2" />
+							<button onClick={() => deletePageContent(it.key)} className="px-2 py-1 bg-red-500/80 rounded-full">Delete</button>
+						</div>
+					))}
+				</section>
 
 				<section className="bg-white/5 rounded-xl p-6 space-y-4">
 					<h2 className="text-xl font-semibold">Contact Information</h2>
